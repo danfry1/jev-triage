@@ -1,0 +1,22 @@
+{
+  "name": "jev-triage",
+  "version": "0.1.0",
+  "private": true,
+  "description": "GitHub Action that labels, deduplicates and spam-checks new issues with Jev, returning calibrated confidence for every decision.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "bun build src/main.ts --target=node --format=esm --outfile=dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@actions/core": "^3.0.1",
+    "@actions/github": "^9.1.1",
+    "@typesafe-ai/sdk": "^0.6.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.9.0"
+  }
+}

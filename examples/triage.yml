@@ -1,0 +1,25 @@
+name: Triage issues
+
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+    inputs:
+      issue-number:
+        description: Issue to triage
+        required: true
+
+permissions:
+  issues: write
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: danfry1/jev-triage@v0
+        with:
+          api-key: ${{ secrets.TYPESAFE_API_KEY }}
+          issue-number: ${{ inputs.issue-number }}
+          # Starts in dry-run mode: it comments what it would do and changes nothing.
+          # Set to "false" once the suggestions look right.
+          dry-run: "true"

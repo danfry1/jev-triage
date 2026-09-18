@@ -1,0 +1,70 @@
+name: Jev Triage
+description: Label, deduplicate and spam-check new issues with Jev. Every decision comes with a calibrated probability.
+author: Daniel Fry
+branding:
+  icon: tag
+  color: orange
+
+inputs:
+  api-key:
+    description: TypeSafe API key. Store it as a repository secret.
+    required: true
+  github-token:
+    description: Token used to read issues and apply labels.
+    default: ${{ github.token }}
+  model:
+    description: Jev model id. Defaults to the SDK default (jev-latest).
+    default: ""
+  base-url:
+    description: Override the TypeSafe API URL.
+    default: ""
+  dry-run:
+    description: Only post a comment describing what would happen. Set to "false" to apply labels and close spam.
+    default: "true"
+  label-threshold:
+    description: Minimum probability (0-1) for a label to be applied.
+    default: "0.8"
+  max-labels:
+    description: Maximum number of labels applied to one issue.
+    default: "3"
+  exclude-labels:
+    description: Comma-separated labels the model never applies (maintainer-only labels).
+    default: "duplicate,invalid,wontfix,spam,needs-triage,good first issue,help wanted"
+  fallback-label:
+    description: Label applied when no other label is confident enough. Empty disables it.
+    default: ""
+  duplicate-threshold:
+    description: Minimum confidence (0-1) before an issue is flagged as a duplicate.
+    default: "0.9"
+  duplicate-label:
+    description: Label applied to likely duplicates. Empty disables it.
+    default: "duplicate"
+  max-duplicate-candidates:
+    description: Number of recent open issues compared for duplicates (0-254). 0 disables duplicate detection.
+    default: "100"
+  spam-threshold:
+    description: Minimum spam probability (0-1) before the issue is closed as not planned.
+    default: "0.95"
+  spam-label:
+    description: Label added to closed spam, only if it already exists in the repository.
+    default: "spam"
+  comment:
+    description: '"auto" comments on dry runs, duplicates and spam; "always" or "never" override that.'
+    default: auto
+  issue-number:
+    description: Issue to triage. Only needed for workflow_dispatch runs.
+    default: ""
+
+outputs:
+  labels:
+    description: JSON array of labels applied (or that would be applied on a dry run).
+  spam-probability:
+    description: Probability the issue is spam.
+  duplicate-of:
+    description: Number of the issue this likely duplicates, or empty.
+  latency-ms:
+    description: Round-trip time of the Jev request in milliseconds.
+
+runs:
+  using: node24
+  main: dist/index.js
