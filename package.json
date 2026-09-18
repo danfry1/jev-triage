@@ -5,6 +5,7 @@
   "description": "GitHub Action that labels, deduplicates and spam-checks new issues with Jev, returning calibrated confidence for every decision.",
   "license": "MIT",
   "type": "module",
+  "packageManager": "bun@1.3.14",
   "scripts": {
     "build": "bun build src/main.ts --target=node --format=esm --outfile=dist/index.js",
     "typecheck": "tsc --noEmit",
