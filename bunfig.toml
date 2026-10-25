@@ -3,4 +3,6 @@
 # than this threshold (in seconds). 604800 = 7 days. This is install-time
 # defense-in-depth; the primary one-week gate is the Dependabot cooldown,
 # which blocks update PRs until a version is at least seven days old.
+# If a security fix is newer than seven days and the audit step is failing,
+# list that package in minimumReleaseAgeExcludes until the fix ages in.
 minimumReleaseAge = 604800
