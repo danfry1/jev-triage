@@ -19,6 +19,8 @@ jobs:
         with:
           bun-version-file: package.json
       - run: bun install --frozen-lockfile
+      - name: Audit dependencies
+        run: bun audit --audit-level=high
       - run: bun run typecheck
       - run: bun test
       - run: bun run build
