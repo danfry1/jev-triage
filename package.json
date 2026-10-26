@@ -14,7 +14,7 @@
   "dependencies": {
     "@actions/core": "^3.0.1",
     "@actions/github": "^9.1.1",
-    "@typesafe-ai/sdk": "^0.6.0"
+    "@typesafe-ai/sdk": "^0.7.0"
   },
   "devDependencies": {
     "@types/bun": "latest",
